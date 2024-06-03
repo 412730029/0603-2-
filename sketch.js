@@ -67,11 +67,11 @@ function draw() {
   scale(-1, 1);
   image(cam, 0, 0);
 
-  // Update car positions
+  // 移動carImg圖片物件的位置
   carPosX1 += carSpeed1;
   carPosX2 += carSpeed2;
 
-  // Reset car positions if they go off-screen
+  // carImg圖片物件若超出視窗範圍則重置其位置
   if (carPosX1 > width) {
     carPosX1 = -150;
   }
@@ -79,7 +79,7 @@ function draw() {
     carPosX2 = width;
   }
 
-  // Draw moving cars
+  // 畫一個移動中的carImg圖片物件
   image(carImg, carPosX1, 200, 150, 150); // Adjust y-position as needed
   image(carImg, carPosX2, 200, 150, 150); // Adjust y-position as needed
 }
