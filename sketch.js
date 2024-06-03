@@ -7,6 +7,7 @@ https://www.tensorflow.org/hub/tutorials/movenet
 
 let video, bodypose, pose, keypoint, detector;
 let poses = [];
+let carImg;
 
 async function init() {
   const detectorConfig = {
@@ -55,6 +56,10 @@ function draw() {
 }
 
 function drawSkeleton() {
+  function preload() {
+    carImg = loadImage('path/to/your/image.jpg');
+  }
+  
   // Draw all the tracked landmark points
   for (let i = 0; i < poses.length; i++) {
     pose = poses[i];
@@ -90,6 +95,7 @@ function drawSkeleton() {
         // print(partA.x)
       pop() 
     }
+
     // hip to hip
     partA = pose.keypoints[11];
     partB = pose.keypoints[12];
