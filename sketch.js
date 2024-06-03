@@ -36,7 +36,7 @@ async function getPoses() {
 
 
 function preload() {
-  carImg = loadImage("car.gif.gif");
+  carImg = loadImage("car.gif-0000.jpg");
 }
 
 async function setup() {
