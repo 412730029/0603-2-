@@ -8,6 +8,8 @@ https://www.tensorflow.org/hub/tutorials/movenet
 let video, bodypose, pose, keypoint, detector;
 let poses = [];
 let carImg;
+let carPosX1, carPosX2;
+let carSpeed1, carSpeed2;
 
 async function init() {
   const detectorConfig = {
@@ -34,8 +36,10 @@ async function getPoses() {
   requestAnimationFrame(getPoses);
 }
 
-
-
+function preload() {
+  carImg = loadImage("123.gif");
+  console.log(carImg); // Check if the image is loaded properly
+}
 
 async function setup() {
   createCanvas(640, 480);
@@ -47,10 +51,11 @@ async function setup() {
   stroke(255);
   strokeWeight(5);
 
-  // Preload image here
-  carImg = loadImage("123.gif");
-  print(carImg)
-
+  // Initialize car positions and speeds
+  carPosX1 = 0;
+  carPosX2 = width;
+  carSpeed1 = 2;
+  carSpeed2 = -2;
 }
 
 function draw() {
@@ -61,7 +66,18 @@ function draw() {
   translate(cam.width, 0);
   scale(-1, 1);
   image(cam, 0, 0);
-  
+
+  // Update car positions
+  carPosX1 += carSpeed1;
+  carPosX2 += carSpeed2;
+
+  // Reset car positions if they go off-screen
+  if (carPosX1 > width) {
+    carPosX1 = -150;
+  }
+  if (carPosX2 < -150) {
+    carPosX2 = width;
+  }
 }
 
 function drawSkeleton() {
@@ -70,14 +86,14 @@ function drawSkeleton() {
     pose = poses[i];
     // shoulder to wrist
 
-     partA = pose.keypoints[0];
+    partA = pose.keypoints[0];
 
     if (partA.score > 0.1) {
       //line(partA.x, partA.y, partB.x, partB.y);
       push()
       textSize(40)
-      scale(-1,1)
-      text("412730029,林冰湲",partA.x-width,partA.y-250)
+      scale(-1, 1)
+      text("412730029,林冰湲", partA.x - width, partA.y - 250)
       //print(partA.x)
       pop()
     }
@@ -95,10 +111,10 @@ function drawSkeleton() {
     if (partA.score > 0.1 && partB.score > 0.1) {
       //line(partA.x, partA.y, partB.x, partB.y);
       push()
-        image(carImg,partA.x-75, partA.y-75,150,150)
-        image(carImg,partB.x-75, partB.y-75,150,150)
-        // print(partA.x)
-      pop() 
+      image(carImg, carPosX1, partA.y - 75, 150, 150)
+      image(carImg, carPosX2, partB.y - 75, 150, 150)
+      // print(partA.x)
+      pop()
     }
 
     // hip to hip
@@ -106,20 +122,17 @@ function drawSkeleton() {
     partB = pose.keypoints[12];
     if (partA.score > 0.1 && partB.score > 0.1) {
       line(partA.x, partA.y, partB.x, partB.y);
-      
     }
     // shoulders to hips
     partA = pose.keypoints[5];
     partB = pose.keypoints[11];
     if (partA.score > 0.1 && partB.score > 0.1) {
       line(partA.x, partA.y, partB.x, partB.y);
-      
     }
     partA = pose.keypoints[6];
     partB = pose.keypoints[12];
     if (partA.score > 0.1 && partB.score > 0.1) {
       line(partA.x, partA.y, partB.x, partB.y);
-      
     }
     // hip to foot
     for (j = 11; j < 15; j++) {
@@ -127,7 +140,6 @@ function drawSkeleton() {
         partA = pose.keypoints[j];
         partB = pose.keypoints[j + 2];
         line(partA.x, partA.y, partB.x, partB.y);
-        
       }
     }
   }
