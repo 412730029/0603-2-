@@ -7,7 +7,7 @@ https://www.tensorflow.org/hub/tutorials/movenet
 
 let video, bodypose, pose, keypoint, detector;
 let poses = [];
-let carImg;
+let carGif;
 
 async function init() {
   const detectorConfig = {
@@ -57,7 +57,7 @@ function draw() {
 
 function drawSkeleton() {
   function preload() {
-    carImg = loadImage("car.gif");
+    carGif = loadImage("car.gif");
   }
 
   // Draw all the tracked landmark points
