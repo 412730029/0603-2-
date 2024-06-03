@@ -53,7 +53,7 @@ async function setup() {
 
   // Initialize car positions and speeds
   carPosX1 = 0;
-  carPosX2 = width;
+  carPosX2 = width - 150; // Ensure it starts within the canvas
   carSpeed1 = 2;
   carSpeed2 = -2;
 }
@@ -62,7 +62,7 @@ function draw() {
   image(video, 0, 0);
   drawSkeleton();
   // flip horizontal
-  cam = get();
+  let cam = get();
   translate(cam.width, 0);
   scale(-1, 1);
   image(cam, 0, 0);
@@ -78,6 +78,10 @@ function draw() {
   if (carPosX2 < -150) {
     carPosX2 = width;
   }
+
+  // Draw moving cars
+  image(carImg, carPosX1, 200, 150, 150); // Adjust y-position as needed
+  image(carImg, carPosX2, 200, 150, 150); // Adjust y-position as needed
 }
 
 function drawSkeleton() {
