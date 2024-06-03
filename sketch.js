@@ -49,6 +49,7 @@ async function setup() {
 
   // Preload image here
   carImg = loadImage("123.gif");
+  print(carImg)
 
 }
 
