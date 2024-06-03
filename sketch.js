@@ -47,6 +47,9 @@ async function setup() {
   stroke(255);
   strokeWeight(5);
 
+  // Preload image here
+  carImg = loadImage("123.gif");
+
 }
 
 function draw() {
@@ -60,10 +63,7 @@ function draw() {
   
 }
 
-
 function drawSkeleton() {
-  
-  
   // Draw all the tracked landmark points
   for (let i = 0; i < poses.length; i++) {
     pose = poses[i];
@@ -89,11 +89,6 @@ function drawSkeleton() {
       }
     }
     // shoulder to shoulder
-
-    function preload() {
-      carImg = loadImage("car.gif-0000.jpg");
-    }
-    
     partA = pose.keypoints[5];
     partB = pose.keypoints[6];
     if (partA.score > 0.1 && partB.score > 0.1) {
