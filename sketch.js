@@ -70,7 +70,7 @@ function drawSkeleton() {
         text("412730029,林冰湲",partA.x-width,partA.y-250)
         //print(partA.x)
       pop()
-      
+    }
     for (j = 5; j < 9; j++) {
       if (pose.keypoints[j].score > 0.1 && pose.keypoints[j + 2].score > 0.1) {
         partA = pose.keypoints[j];
