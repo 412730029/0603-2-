@@ -34,10 +34,6 @@ async function getPoses() {
   requestAnimationFrame(getPoses);
 }
 
-function preload() {
-  carImg = loadImage("car.gif");
-}
-
 async function setup() {
   createCanvas(640, 480);
   video = createCapture(VIDEO, videoReady);
@@ -47,6 +43,11 @@ async function setup() {
 
   stroke(255);
   strokeWeight(5);
+
+}
+
+function preload() {
+  carImg = loadImage("car.gif");
 }
 
 function draw() {
