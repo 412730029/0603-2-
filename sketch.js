@@ -35,6 +35,20 @@ async function getPoses() {
 }
 
 
+
+
+async function setup() {
+  createCanvas(640, 480);
+  video = createCapture(VIDEO, videoReady);
+  video.size(width, height);
+  video.hide();
+  await init();
+
+  stroke(255);
+  strokeWeight(5);
+
+}
+
 function draw() {
   image(video, 0, 0);
   drawSkeleton();
@@ -45,7 +59,6 @@ function draw() {
   image(cam, 0, 0);
   
 }
-
 
 function preload() {
   carImg = loadImage("car.gif-0000.jpg");
@@ -121,17 +134,6 @@ function drawSkeleton() {
   }
 }
 
-async function setup() {
-  createCanvas(640, 480);
-  video = createCapture(VIDEO, videoReady);
-  video.size(width, height);
-  video.hide();
-  await init();
-
-  stroke(255);
-  strokeWeight(5);
-
-}
 /* Points (view on left of screen = left part - when mirrored)
   0 nose
   1 left eye
