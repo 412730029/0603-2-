@@ -7,9 +7,9 @@ https://www.tensorflow.org/hub/tutorials/movenet
 
 let video, bodypose, pose, keypoint, detector;
 let poses = [];
-let carImg;
-let carPosX1, carPosX2;
-let carSpeed1, carSpeed2;
+let bearImg;
+let bearPosX1, carPosX2;
+let bearSpeed1, carSpeed2;
 
 async function init() {
   const detectorConfig = {
@@ -37,8 +37,8 @@ async function getPoses() {
 }
 
 function preload() {
-  carImg = loadImage("123.gif");
-  console.log(carImg); // Check if the image is loaded properly
+  carImg = loadImage("bear.gif");
+  console.log(bearImg); // Check if the image is loaded properly
 }
 
 async function setup() {
@@ -52,10 +52,10 @@ async function setup() {
   strokeWeight(5);
 
   // Initialize car positions and speeds
-  carPosX1 = 0;
-  carPosX2 = width - 150; // Ensure it starts within the canvas
-  carSpeed1 = 2;
-  carSpeed2 = -2;
+  bearPosX1 = 0;
+  bearPosX2 = width - 150; // Ensure it starts within the canvas
+  bearSpeed1 = 2;
+  bearSpeed2 = -2;
 }
 
 function draw() {
@@ -68,20 +68,20 @@ function draw() {
   image(cam, 0, 0);
 
   // 移動carImg圖片物件的位置
-  carPosX1 += carSpeed1;
-  carPosX2 += carSpeed2;
+  bearPosX1 += bearSpeed1;
+  bearPosX2 += bearSpeed2;
 
   // carImg圖片物件若超出視窗範圍則重置其位置
-  if (carPosX1 > width) {
-    carPosX1 = -150;
+  if (bearPosX1 > width) {
+    bearPosX1 = -150;
   }
-  if (carPosX2 < -150) {
-    carPosX2 = width;
+  if (bearPosX2 < -150) {
+    bearPosX2 = width;
   }
 
   // 畫一個移動中的carImg圖片物件
-  image(carImg, carPosX1, 200, 150, 150); // Adjust y-position as needed
-  image(carImg, carPosX2, 200, 150, 150); // Adjust y-position as needed
+  image(bearImg, bearPosX1, 200, 150, 150); // Adjust y-position as needed
+  image(bearImg, bearPosX2, 200, 150, 150); // Adjust y-position as needed
 }
 
 function drawSkeleton() {
@@ -115,8 +115,8 @@ function drawSkeleton() {
     if (partA.score > 0.1 && partB.score > 0.1) {
       //line(partA.x, partA.y, partB.x, partB.y);
       push()
-      image(carImg, carPosX1, partA.y - 75, 150, 150)
-      image(carImg, carPosX2, partB.y - 75, 150, 150)
+      image(bearImg, bearPosX1, partA.y - 75, 150, 150)
+      image(bearImg, bearPosX2, partB.y - 75, 150, 150)
       // print(partA.x)
       pop()
     }
